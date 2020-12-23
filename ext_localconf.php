@@ -20,6 +20,6 @@ if (TYPO3_MODE === 'BE') {
                 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig('<INCLUDE_TYPOSCRIPT: source="FILE:EXT:ws_textmedia_bootstrap/Configuration/PageTSconfig/NewContentElementWizard.typoscript">');
             }
         },
-        $_EXTKEY
+        'ws_textmedia_bootstrap'
     );
 }
