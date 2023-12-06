@@ -24,5 +24,10 @@
     "psr-4": {
       "Websight\\WsTextmediaBootstrap\\": "Classes/"
     }
+  },
+  "extra": {
+    "typo3/cms": {
+      "extension-key": "ws_textmedia_bootstrap"
+    }
   }
 }
