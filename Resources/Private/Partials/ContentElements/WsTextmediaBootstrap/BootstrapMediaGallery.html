@@ -1,6 +1,6 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
 			xmlns:ce="http://typo3.org/ns/TYPO3/CMS/FluidStyledContent/ViewHelpers"
-			xmlns:r="http://typo3.org/ns/Codemonkey1988/ResponsiveImages/ViewHelpers"
+			xmlns:ri="http://typo3.org/ns/Codemonkey1988/ResponsiveImages/ViewHelpers"
 			data-namespace-typo3-fluid="true">
 
 <f:if condition="{gallery.rows}">
@@ -84,15 +84,13 @@
 </f:section>
 
 <f:section name="image">
-	<r:loadRegister key="IMAGE_VARIANT_KEY" value="lazysizes">
-		<f:media
-			file="{column.media}"
-			additionalAttributes="{data-sizes: 'auto'}"
-			width="{f:if(condition:'{column.dimensions.width}', then:'{column.dimensions.width}', else:'{grid.max_image_width}')}"
-			alt="{column.media.alternative}"
-			title="{column.media.title}"
-			class="img-responsive lazyload"
-		/>
-	</r:loadRegister>
+	<ri:loadRegister value="lazysizes">
+		<f:render partial="PictureTag" arguments="{
+			image: column.media,
+			imgAlt: column.media.alternative,
+			imgTitle: column.media.title,
+			imgClass: 'img-responsive lazyload'
+		}" />
+	</ri:loadRegister>
 </f:section>
 </html>

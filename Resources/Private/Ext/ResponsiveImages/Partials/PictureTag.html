@@ -1,0 +1,69 @@
+<html data-namespace-typo3-fluid="true"
+      xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:ri="http://typo3.org/ns/Codemonkey1988/ResponsiveImages/ViewHelpers">
+
+<f:comment><!--
+    Based on EXT:responsive_images/Resources/Private/Partials/PictureTag.html
+
+    This is just an example template. Feel free to create you own.
+
+    Usage of this template:
+    1. Add the extensions partial path "EXT:responsive_images/Resources/Private/Partials/" to your partialRootPaths
+    2. Render the partial to get a picture tag with <f:render partial="PictureTag" arguments="{arguments}" />
+       See below for available option.
+
+   Available options in this partial:
+   image: <FileInterface> - required - The image to render - either a file or file reference object
+   imageWidth: <string> - optional - The default image width
+   imageHeight: <string> - optional - The default image height
+   imageMaxWidth: <int> - optional - The default image max width
+   imageMaxHeight: <int> - optional - The default image max height
+   imageDefaultCropVariant: <string> - optional - The crop variant that should be used fpr rendering the fallback image
+   cropVariants: <array<string, string>> - optional - An array with cropVariants and media queries that should be rendered as source tags.
+                 Example: {mobile: '(max-width: 767px)', tablet: '(min-width: 768px)', desktop: '(min-width: 1280px)'}
+   imgClass: <string> - optional - A CSS class string that should be added to the img tag
+   variant: <string> - optional - An existing responsive images variant key that should be used for rendering
+--></f:comment>
+
+<f:render section="PictureTag" arguments="{_all}" />
+
+<f:section name="PictureTag">
+    <picture>
+        <f:render section="SourceTags" arguments="{_all}"/>
+        <f:image
+            image="{image}"
+            cropVariant="{f:if(condition: imageDefaultCropVariant, then: imageDefaultCropVariant, else: 'default')}"
+            maxWidth="1200"
+            maxHeight="1200"
+            alt="{imgAlt}"
+            title="{imgTitle}"
+            class="{imgClass}"
+            additionalAttributes="{data-sizes: 'auto'}"
+        />
+    </picture>
+</f:section>
+
+<f:section name="SourceTags">
+    <f:if condition="{variant}">
+        <f:then>
+            <f:alias map="{variantPrefixes: {10: 'highres', 20: 'default'}}">
+                <f:for each="{variantPrefixes}" as="variantPrefixName">
+                    <ri:loadRegister value="{variantPrefixName}-{variant}">
+                        <ri:source image="{image}" fileExtension="jpg" />
+                    </ri:loadRegister>
+                </f:for>
+            </f:alias>
+        </f:then>
+        <f:else>
+            <f:alias map="{extendedVariants: {11: 'highres-lazysizes', 21: 'default-lazysizes'}}">
+                <f:for each="{extendedVariants}" as="extendedVariantName">
+                    <ri:loadRegister value="{extendedVariantName}">
+                        <ri:source image="{image}" fileExtension="jpg" />
+                    </ri:loadRegister>
+                </f:for>
+            </f:alias>
+        </f:else>
+    </f:if>
+</f:section>
+
+</html>
