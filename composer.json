@@ -2,6 +2,7 @@
   "name": "websight/ws-textmedia-bootstrap",
   "description": "Text & Media Pre styled for Bootstrap",
   "type": "typo3-cms-extension",
+  "version": "2.1.102",
   "license": "GPL3",
   "authors": [
     {
